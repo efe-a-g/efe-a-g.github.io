@@ -3,34 +3,176 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Efe Ali Gorguner</title>
-
   <style>
+    :root {
+      --bg: #f4f4f4;
+      --card: #ffffff;
+      --text: #222;
+      --muted: #656d76;
+      --rule: #e6e8eb;
+      --accent: #0969da;
+      --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    }
+
     body {
       font-family: Arial, sans-serif;
       max-width: 800px;
       margin: 60px auto;
       padding: 20px;
-      background: #f4f4f4;
-      color: #222;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
     }
 
     main {
-      background: white;
+      background: var(--card);
       padding: 40px;
       border-radius: 12px;
     }
 
     h1 {
-      color: #0969da;
+      color: var(--accent);
+      margin: 0 0 12px;
+      font-size: 1.9rem;
+      letter-spacing: -0.01em;
+    }
+
+    .intro {
+      margin: 0;
+      color: var(--muted);
+      max-width: 52ch;
+    }
+
+    /* --- Blog --------------------------------------------------------- */
+
+    .blog {
+      margin-top: 48px;
+      border-top: 1px solid var(--rule);
+      padding-top: 32px;
+    }
+
+    .blog h2 {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 0 0 20px;
+    }
+
+    .post {
+      border-left: 2px solid var(--rule);
+      padding-left: 20px;
+    }
+
+    .post + .post {
+      margin-top: 4px;
+    }
+
+    .post summary {
+      display: grid;
+      grid-template-columns: 7.5rem 1fr auto;
+      align-items: baseline;
+      gap: 4px 16px;
+      padding: 14px 0;
+      cursor: pointer;
+      list-style: none;
+    }
+
+    .post summary::-webkit-details-marker { display: none; }
+
+    .post summary::after {
+      content: "+";
+      font-family: var(--mono);
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .post[open] summary::after { content: "\2212"; }
+
+    .date {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--muted);
+      letter-spacing: 0.03em;
+    }
+
+    .title {
+      font-size: 1.05rem;
+      font-weight: bold;
+    }
+
+    .post-body {
+      padding: 0 0 20px;
+      max-width: 62ch;
+    }
+
+    .post-body p {
+      margin: 0 0 14px;
+    }
+
+    .post-body p:last-child { margin-bottom: 0; }
+
+    /* Hover and open states: the rule on the left fills in with accent. */
+    .post:hover,
+    .post[open],
+    .post:focus-within {
+      border-left-color: var(--accent);
+    }
+
+    .post:hover .title,
+    .post[open] .title {
+      color: var(--accent);
+    }
+
+    .post summary:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 4px;
+      border-radius: 4px;
+    }
+
+    .post,
+    .title,
+    .post summary::after {
+      transition: border-color 0.15s ease, color 0.15s ease;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; }
+    }
+
+    @media (max-width: 560px) {
+      body { margin: 24px auto; }
+      main { padding: 28px 22px; }
+      .post summary { grid-template-columns: 1fr auto; }
+      .date { grid-column: 1 / -1; }
     }
   </style>
 </head>
-
 <body>
   <main>
-    <p>Welcome to my website! I am Efe, a CS student at Oxford.</p>
+    <h1>Efe Ali Gorguner</h1>
+    <p class="intro">Welcome to my website! I am Efe, a CS student at Oxford.</p>
+
+    <section class="blog">
+      <h2>Blog</h2>
+
+      <!-- To add a post, copy one <details class="post"> block and edit it.
+           Newest post goes first. -->
+
+      <details class="post">
+        <summary>
+          <span class="date">2026-08-05</span>
+          <span class="title">On-policy self-distillation</span>
+        </summary>
+        <div class="post-body">
+          <p>Coming soon.</p>
+        </div>
+      </details>
+
+    </section>
   </main>
 </body>
 </html>
