@@ -3,80 +3,133 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Efe Ali Gorguner — computer science at Oxford. Notes on machine learning research.">
+  <meta name="theme-color" content="#F7F6F1">
   <title>Efe Ali Gorguner</title>
+
+  <!-- Tiny loss-curve favicon, no extra files needed -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M3 6 C 10 6 10 14 16 20 C 20 24 25 26 28 26' fill='none' stroke='%231C2530' stroke-width='3' stroke-linecap='round'/%3E%3Ccircle cx='28' cy='26' r='3' fill='%23A03024'/%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=STIX+Two+Text:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --bg: #f4f4f4;
-      --card: #ffffff;
-      --text: #222;
-      --muted: #656d76;
-      --rule: #e6e8eb;
-      --accent: #0969da;
-      --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+      --paper: #F7F6F1;        /* stone paper */
+      --ink: #1C2530;          /* blue-black */
+      --navy: #1E3A6E;         /* interactive: links, open posts */
+      --red: #A03024;          /* rubrication: dates, marks */
+      --muted: #5C6570;
+      --line: #DCD8CC;
+      --line-strong: #A9A396;
+      --serif: "STIX Two Text", Georgia, "Times New Roman", serif;
+      --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     }
+
+    * { box-sizing: border-box; }
+
+    html { -webkit-text-size-adjust: 100%; }
 
     body {
-      font-family: Arial, sans-serif;
-      max-width: 800px;
-      margin: 60px auto;
-      padding: 20px;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--serif);
+      line-height: 1.7;
     }
 
+    ::selection { background: #EBD5CF; }
+
     main {
-      background: var(--card);
-      padding: 40px;
-      border-radius: 12px;
+      max-width: 41rem;
+      margin: 0 auto;
+      padding: 4.5rem 1.5rem 3rem;
+    }
+
+    a {
+      color: var(--navy);
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-decoration-color: var(--line-strong);
+      text-underline-offset: 3px;
+    }
+
+    a:hover {
+      color: var(--red);
+      text-decoration-color: currentColor;
+    }
+
+    /* --- Masthead ----------------------------------------------------- */
+
+    .role {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      font-weight: 400;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 0 0 0.6rem;
     }
 
     h1 {
-      color: var(--accent);
-      margin: 0 0 12px;
-      font-size: 1.9rem;
-      letter-spacing: -0.01em;
+      font-size: clamp(2rem, 5.5vw, 2.5rem);
+      font-weight: 600;
+      letter-spacing: -0.015em;
+      line-height: 1.12;
+      margin: 0 0 1.1rem;
     }
 
     .intro {
       margin: 0;
-      color: var(--muted);
-      max-width: 52ch;
+      max-width: 56ch;
+      font-size: 1.05rem;
     }
+
+    /* --- Loss-curve divider ------------------------------------------- */
+
+    .divider {
+      display: block;
+      width: 100%;
+      height: 30px;
+      margin: 3.25rem 0 2rem;
+    }
+
+    .divider path {
+      fill: none;
+      stroke: var(--line-strong);
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      vector-effect: non-scaling-stroke;
+    }
+
+    .divider circle { fill: var(--red); }
 
     /* --- Blog --------------------------------------------------------- */
 
-    .blog {
-      margin-top: 48px;
-      border-top: 1px solid var(--rule);
-      padding-top: 32px;
-    }
-
     .blog h2 {
       font-family: var(--mono);
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-weight: 400;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
       color: var(--muted);
-      margin: 0 0 20px;
+      margin: 0 0 1.25rem;
     }
 
     .post {
-      border-left: 2px solid var(--rule);
-      padding-left: 20px;
+      border-left: 2px solid var(--line);
+      padding-left: 1.25rem;
     }
 
-    .post + .post {
-      margin-top: 4px;
-    }
+    .post + .post { margin-top: 0.35rem; }
 
     .post summary {
       display: grid;
-      grid-template-columns: 7.5rem 1fr auto;
+      grid-template-columns: 6.5rem 1fr auto;
       align-items: baseline;
-      gap: 4px 16px;
-      padding: 14px 0;
+      gap: 2px 16px;
+      padding: 0.9rem 0;
       cursor: pointer;
       list-style: none;
     }
@@ -87,50 +140,59 @@
       content: "+";
       font-family: var(--mono);
       color: var(--muted);
-      font-size: 0.95rem;
+      font-size: 1rem;
     }
 
     .post[open] summary::after { content: "\2212"; }
 
     .date {
       font-family: var(--mono);
-      font-size: 0.78rem;
-      color: var(--muted);
-      letter-spacing: 0.03em;
+      font-size: 0.72rem;
+      color: var(--red);
+      letter-spacing: 0.05em;
     }
 
     .title {
-      font-size: 1.05rem;
-      font-weight: bold;
+      font-size: 1.12rem;
+      font-weight: 600;
+      line-height: 1.35;
     }
 
     .post-body {
-      padding: 0 0 20px;
+      padding: 0.25rem 0 1.4rem;
       max-width: 62ch;
+      font-size: 1.03rem;
     }
 
-    .post-body p {
-      margin: 0 0 14px;
-    }
-
+    .post-body p { margin: 0 0 1.05em; }
     .post-body p:last-child { margin-bottom: 0; }
 
-    /* Hover and open states: the rule on the left fills in with accent. */
+    /* Interaction: the rule and title take the interactive navy. */
     .post:hover,
     .post[open],
     .post:focus-within {
-      border-left-color: var(--accent);
+      border-left-color: var(--navy);
     }
 
     .post:hover .title,
-    .post[open] .title {
-      color: var(--accent);
+    .post[open] .title,
+    .post:hover summary::after {
+      color: var(--navy);
+    }
+
+    .post[open] .post-body {
+      animation: reveal 0.3s ease both;
+    }
+
+    @keyframes reveal {
+      from { opacity: 0; transform: translateY(-3px); }
+      to   { opacity: 1; transform: none; }
     }
 
     .post summary:focus-visible {
-      outline: 2px solid var(--accent);
+      outline: 2px solid var(--navy);
       outline-offset: 4px;
-      border-radius: 4px;
+      border-radius: 3px;
     }
 
     .post,
@@ -139,13 +201,25 @@
       transition: border-color 0.15s ease, color 0.15s ease;
     }
 
+    /* --- Footer ------------------------------------------------------- */
+
+    footer {
+      margin-top: 3.5rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--line);
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+    }
+
     @media (prefers-reduced-motion: reduce) {
-      * { transition: none !important; }
+      * { transition: none !important; animation: none !important; }
     }
 
     @media (max-width: 560px) {
-      body { margin: 24px auto; }
-      main { padding: 28px 22px; }
+      main { padding: 2.75rem 1.25rem 2.5rem; }
+      .divider { margin: 2.5rem 0 1.75rem; }
       .post summary { grid-template-columns: 1fr auto; }
       .date { grid-column: 1 / -1; }
     }
@@ -153,55 +227,64 @@
 </head>
 <body>
   <main>
-    <h1>Efe Ali Gorguner</h1>
-    <p class="intro">Hi, I'm Efe! I'm currently a CS student at Oxford, where I've been ranked 3rd in my cohort in exams and helped organised a physical AI <a href="https://www.linkedin.com/posts/oxai_last-week-we-wrapped-oxfords-first-physical-activity-7464990522290425856-PcI-/">hackathon</a>. I've also done some machine learning <a href="https://arxiv.org/abs/2605.19965">research</a> submitted to NeurIPS. I am now looking to grow as a researcher, engineer and innovator.</p>
+    <header>
+      <p class="role">Computer Science &middot; University of Oxford</p>
+      <h1>Efe Ali Gorguner</h1>
+      <p class="intro">Hi, I'm Efe! I'm currently a CS student at Oxford, where I've been ranked 3rd in my cohort in exams and helped organise a physical AI <a href="https://www.linkedin.com/posts/oxai_last-week-we-wrapped-oxfords-first-physical-activity-7464990522290425856-PcI-/">hackathon</a>. I've also done some machine learning <a href="https://arxiv.org/abs/2605.19965">research</a> submitted to NeurIPS. I am now looking to grow as a researcher, engineer and innovator.</p>
+    </header>
 
     <section class="blog">
+      <!-- Loss curve: it converges. -->
+      <svg class="divider" viewBox="0 0 640 32" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+        <path d="M2 5 C 50 5.5 80 7 118 11 C 150 14.5 165 18 200 20.5 C 235 23 255 22.5 290 24.5 C 330 26.7 380 27.5 430 28 C 500 28.6 560 28.4 630 28.6" />
+        <circle cx="630" cy="28.6" r="3" />
+      </svg>
+
       <h2>Blog</h2>
 
       <!-- To add a post, copy one <details class="post"> block and edit it.
-           Newest post goes first. -->
+           Newest post goes first. Keep `open` only on the latest post so it
+           starts expanded. -->
 
-      <details class="post">
+      <details class="post" open>
         <summary>
-          <span class="date">2026-08-05</span>
+          <time class="date" datetime="2026-08-05">2026-08-05</time>
           <span class="title">Sample efficiency</span>
         </summary>
         <div class="post-body">
-          <p>
-            No human learns by reading all the text available on the internet. However, we can learn new knowledge and skills efficiently and be adaptable. Whereas, modern LLMs need massive amounts of training data to match human performance on many tasks.
-            How is it that humans appear to be so much more sample efficient? I believe this is a nuanced question. Naively, we might say this implies that humans must have a much better learning algorithm than what we use to train LLMs (backpropagation, optimisers, architecture, etc.). 
-            However, there are many counters to this point. Firstly, the human brain has evolved through millions of years. How can we account for the amount of "data" that was involved in the evolutionary process? This might be valid point for the types of tasks animals or humans have doing 
-            for a long time - for example vision or locomotoion, we might just have inbuilt circuits encoded in our genome that is much better for these tasks. However, I don't think the argument follows for tasks humans have only more recently been doing such as mathematics or coding. Evolution
-            is not that fast! However, of course it might have indirectly learnt better algorithms which lead to sample efficiency and better generalisation. There is also another interesting point qith regards to the genome - a full human genome can contain up to around 200 GB of information (https://www.genome.gov/about-genomics/fact-sheets/Genomic-Data-Science). However, 
-            the human brain contains 86 billion neurons with 100 trillion connections (https://hms.harvard.edu/news/new-field-neuroscience-aims-map-connections-brain) - around 2 orders of magnitude larger than the number of bits stored in the genome. So many neural circuits might be either very compressable, or learnt after birth. Furthermore, perhaps comparing the amount of text data 
-            a human ingests with how much an LLM ingests might be underplaying the sample efficiency or generalisation capability of the models. For example, LLMs exhibit the emergent phenomenon of in context learning. Here, with very few examples, the models can pick up a new skill or task - something that
-            would be unimaginable for learning via gradient descent. 
-            Nonetheless, even though evolution might have played a role in creating circuits for primal skills and even though LLMs might exhibit generalisation capabilities beyond what was imaginable a decade or two ago, I believe there is still a big gap in the learning and generalisation capabilities displayed
-            by humans and LLMs. It is hard to argue against the fact that even for newer tasks for which evolution could not have adapted so fast human pick things up quicker, and the size comparison for the human brain and the genome, alongside mountains of neuroscience and psychology literature points at some learning 
-            at scale really happening after birth.
-            So, back to the question - what is the difference? well, this is too big a question for me to attempt I think. But if I were to guess i don't think it is solely to do with a different algorithm at the neuron scale (as opposed to backpropagation). One direction research in increasing sample efficiency for LLMs 
-            has taken is to make the most of the learning signal available. For example, consider reinforcement learning. Currently, many example solely make use of a scalar reward value at the end of a rollout as the learning signal. However, maybe one reason humans can learn so efficiently is they already have common sense
-            and a good understanding of the world. Can inject the understanding LLMs have about the world to make them learn more efficiently? This is the key idea behind on-policy self distillation.
-            The method goes as follows: we give the model the question and let it attempt a solution. Then, the model receives some feedback from the environment - for example, for coding this might be a compilation error or a test case that didn't pass. Then, the model is prompted again with the previous example, as well the 
-            feedback received. This way, the model can attempt to fix its mistake. The model is trained to match the log probabilities of output with feedback without having received it - this is the training objective. This way, existing world understanding of the model can be used to get a richer learning signal - by incorporating
-            the feedback, the model can learn from the signal of where its attempt went wrong, not solely that it was.
-            There are benefits to this method being on-policy beyond the scalability without a strong teacher. Recent work has demonstarted that self distillation can be beneficial for continual learning (https://arxiv.org/abs/2601.19897) - by letting the model generate its own outputs on-policy, the update
-            ends up being "closer" to the base model, retaining more of the exisiting capabilities. 
-            Now, all of this sounds very exciting - however, what does it work well for? This area is still very new and this is all still being figured out, however one area it seems to shine in looks to be coding with environment feedback from the compiler/interpreter or test cases. However, one field were there is perhaps an even bigger gap between
-            human and model learning than LLMs is robotics. Could self distillation techniques be useful here?
-            There is already work to suggest that when working with VLAs, providing feedback via text for on-policy self distillation does not create a meaningful difference. But why? I think text is firstly not precise enough for robotics - and the way VLAs perhaps doesn't include much of very specific textual feedback, rather general instructions. I 
-            can describe to you in text all about how to shoot a basketball like Michael Jordan none of my words can compare to actually watching it live. And of course learning to shoot by watching someone cannot substitute for actually trying for yourself! But perhaps that is a different story. Nonetheless, I think in order to incorporate the ideas of on-policy
-            self distialltion to VLAs there would have to be many changes made. Firstly, the context/memory of the model. For LLMs, the model can keep in context its previous attempt, feedback and current attempt all at once. I believe this sort of memory is required to achieve the learning via a rich signal that self distillation does - perhaps the previous attempt 
-            and feedback can somehow be compressed but it is not obvious how to do it. Although recent models such as pi 0.7 have increasing amounts of memory and emergent generalisation and learning capabilities, older open source models don't seem to be suitable at all. Secondly, I believe both the memory observation and correction have to come from the visual domain. In short, it seems current publicly released models are 
-            not yet suitable for the on-policy self distillation like techniques used for LLMs, but perhaps as models develop emergent in-context learning capabilities and longer and longer contexts for memory, this could become interesting in the future for robots as well.
-            Although much of this text has been about on-policy self distillation, I still don't think we have found what is at the heart of the sample efficiency difference between humans and LLMs. But perhaps we don't need to - after all, the AI models of today are nothing like humans, and the capabilities they gain might be both completely different and obtained via 
-            unrelated mechanisms. 
-          </p>
+          <p>No human learns by reading all the text available on the internet. However, we can learn new knowledge and skills efficiently and be adaptable. Modern LLMs, on the other hand, need massive amounts of training data to match human performance on many tasks. How is it that humans appear to be so much more sample efficient?</p>
+
+          <p>I believe this is a nuanced question. Naively, we might say this implies that humans must have a much better learning algorithm than what we use to train LLMs (backpropagation, optimisers, architecture, and so on). However, there are many counters to this point.</p>
+
+          <p>Firstly, the human brain has evolved over millions of years. How can we account for the amount of &ldquo;data&rdquo; that was involved in the evolutionary process? This might be a valid point for the types of tasks animals and humans have been doing for a long time &ndash; for vision or locomotion, say, we might just have inbuilt circuits encoded in our genome that are much better suited to these tasks. However, I don't think the argument follows for tasks humans have only more recently been doing, such as mathematics or coding. Evolution is not that fast! Of course, it might have indirectly learnt better algorithms which lead to sample efficiency and better generalisation.</p>
+
+          <p>There is also another interesting point with regards to the genome: a full human genome can contain up to around <a href="https://www.genome.gov/about-genomics/fact-sheets/Genomic-Data-Science">200 GB of information</a>. The human brain, however, contains <a href="https://hms.harvard.edu/news/new-field-neuroscience-aims-map-connections-brain">86 billion neurons with 100 trillion connections</a> &ndash; around two orders of magnitude larger than the number of bits stored in the genome. So many neural circuits might be either very compressible, or learnt after birth.</p>
+
+          <p>Furthermore, perhaps comparing the amount of text data a human ingests with how much an LLM ingests underplays the sample efficiency and generalisation capability of the models. For example, LLMs exhibit the emergent phenomenon of in-context learning. Here, with very few examples, a model can pick up a new skill or task &ndash; something that would be unimaginable for learning via gradient descent.</p>
+
+          <p>Nonetheless &ndash; even though evolution might have played a role in creating circuits for primal skills, and even though LLMs might exhibit generalisation capabilities beyond what was imaginable a decade or two ago &ndash; I believe there is still a big gap between the learning and generalisation capabilities displayed by humans and by LLMs. It is hard to argue against the fact that even for newer tasks, for which evolution could not have adapted so fast, humans pick things up quicker. And the size comparison between the human brain and the genome, alongside mountains of neuroscience and psychology literature, points at some learning at scale really happening after birth.</p>
+
+          <p>So, back to the question &ndash; what is the difference? Well, this is too big a question for me to attempt, I think. But if I were to guess, I don't think it is solely to do with a different algorithm at the neuron scale (as opposed to backpropagation).</p>
+
+          <p>One direction research in increasing sample efficiency for LLMs has taken is to make the most of the learning signal available. Consider reinforcement learning: currently, many setups solely make use of a scalar reward value at the end of a rollout as the learning signal. But maybe one reason humans can learn so efficiently is that they already have common sense and a good understanding of the world. Can we inject the understanding LLMs have about the world to make them learn more efficiently? This is the key idea behind on-policy self-distillation.</p>
+
+          <p>The method goes as follows. We give the model a question and let it attempt a solution. The model then receives some feedback from the environment &ndash; for coding, this might be a compilation error or a test case that didn't pass. The model is then prompted again with its previous attempt, as well as the feedback received, so it can try to fix its mistake. The training objective is to match, without the feedback, the log probabilities of the output the model produced with the feedback. This way, the model's existing understanding of the world can be used to get a richer learning signal: by incorporating the feedback, the model can learn from the signal of where its attempt went wrong, not solely that it was.</p>
+
+          <p>There are benefits to this method being on-policy beyond the scalability of not needing a strong teacher. <a href="https://arxiv.org/abs/2601.19897">Recent work</a> has demonstrated that self-distillation can be beneficial for continual learning: by letting the model generate its own outputs on-policy, the update ends up being &ldquo;closer&rdquo; to the base model, retaining more of its existing capabilities.</p>
+
+          <p>Now, all of this sounds very exciting &ndash; but what does it work well for? This area is still very new and much is still being figured out, but one place it seems to shine is coding, with environment feedback from the compiler, interpreter or test cases. However, one field where there is perhaps an even bigger gap between human and model learning than LLMs is robotics. Could self-distillation techniques be useful here?</p>
+
+          <p>There is already work to suggest that when working with VLAs, providing feedback via text for on-policy self-distillation does not create a meaningful difference. But why? Firstly, I think text is not precise enough for robotics &ndash; and the way VLAs are trained perhaps doesn't include much very specific textual feedback, but rather general instructions. I can describe to you in text all about how to shoot a basketball like Michael Jordan, but none of my words can compare to actually watching it live. And of course, learning to shoot by watching someone cannot substitute for actually trying it yourself! But perhaps that is a different story.</p>
+
+          <p>Nonetheless, I think that in order to incorporate the ideas of on-policy self-distillation into VLAs, many changes would have to be made. Firstly, the context and memory of the model. For LLMs, the model can keep its previous attempt, the feedback and its current attempt in context all at once. I believe this sort of memory is required to achieve the rich-signal learning that self-distillation offers &ndash; perhaps the previous attempt and feedback can somehow be compressed, but it is not obvious how. Although recent models such as &pi;0.7 have increasing amounts of memory and emergent generalisation and learning capabilities, older open-source models don't seem suitable at all. Secondly, I believe both the memory of the observation and the correction have to come from the visual domain. In short, current publicly released models don't seem ready for the on-policy self-distillation techniques used for LLMs &ndash; but as models develop emergent in-context learning capabilities and longer contexts for memory, this could become interesting for robots as well.</p>
+
+          <p>Although much of this post has been about on-policy self-distillation, I still don't think we have found what is at the heart of the sample-efficiency difference between humans and LLMs. But perhaps we don't need to &ndash; after all, the AI models of today are nothing like humans, and the capabilities they gain might be both completely different and obtained via unrelated mechanisms.</p>
         </div>
       </details>
 
     </section>
+
+    <footer>&copy; 2026 &middot; Efe Ali Gorguner</footer>
   </main>
 </body>
 </html>
