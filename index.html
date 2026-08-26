@@ -154,7 +154,7 @@
 <body>
   <main>
     <h1>Efe Ali Gorguner</h1>
-    <p class="intro">Hi, I'm Efe! I'm currently a CS student at Oxford, where I've been ranked 3rd in my cohort in exams and helped organised a physical AI <a href="https://www.linkedin.com/posts/oxai_last-week-we-wrapped-oxfords-first-physical-activity-7464990522290425856-PcI-/">hackathon</a>. I've also done some machine learning <a href="https://arxiv.org/abs/2605.19965">research</a>. I am now looking to grow as a researcher, engineer and innovator.</p>
+    <p class="intro">Hi, I'm Efe! I'm currently a CS student at Oxford, where I've been ranked 3rd in my cohort in exams and helped organised a physical AI <a href="https://www.linkedin.com/posts/oxai_last-week-we-wrapped-oxfords-first-physical-activity-7464990522290425856-PcI-/">hackathon</a>. I've also done some machine learning <a href="https://arxiv.org/abs/2605.19965">research</a> submitted to NeurIPS. I am now looking to grow as a researcher, engineer and innovator.</p>
 
     <section class="blog">
       <h2>Blog</h2>
@@ -165,10 +165,33 @@
       <details class="post">
         <summary>
           <span class="date">2026-08-05</span>
-          <span class="title">On-policy self-distillation</span>
+          <span class="title">Sample efficiency</span>
         </summary>
         <div class="post-body">
-          <p>Coming soon.</p>
+          <p>
+            No human learns by reading all the text available on the internet. However, we can learn new knowledge and skills efficiently and be adaptable. Whereas, modern LLMs need massive amounts of training data to match human performance on many tasks.
+            How is it that humans appear to be so much more sample efficient? I believe this is a nuanced question. Naively, we might say this implies that humans must have a much better learning algorithm than what we use to train LLMs (backpropagation, optimisers, architecture, etc.). 
+            However, there are many counters to this point. Firstly, the human brain has evolved through millions of years. How can we account for the amount of "data" that was involved in the evolutionary process? This might be valid point for the types of tasks animals or humans have doing 
+            for a long time - for example vision or locomotoion, we might just have inbuilt circuits encoded in our genome that is much better for these tasks. However, I don't think the argument follows for tasks humans have only more recently been doing such as mathematics or coding. Evolution
+            is not that fast! However, of course it might have indirectly learnt better algorithms which lead to sample efficiency and better generalisation. There is also another interesting point qith regards to the genome - a full human genome can contain up to around 200 GB of information (https://www.genome.gov/about-genomics/fact-sheets/Genomic-Data-Science). However, 
+            the human brain contains 86 billion neurons with 100 trillion connections (https://hms.harvard.edu/news/new-field-neuroscience-aims-map-connections-brain) - around 2 orders of magnitude larger than the number of bits stored in the genome. So many neural circuits might be either very compressable, or learnt after birth. Furthermore, perhaps comparing the amount of text data 
+            a human ingests with how much an LLM ingests might be underplaying the sample efficiency or generalisation capability of the models. For example, LLMs exhibit the emergent phenomenon of in context learning. Here, with very few examples, the models can pick up a new skill or task - something that
+            would be unimaginable for learning via gradient descent. 
+            Nonetheless, even though evolution might have played a role in creating circuits for primal skills and even though LLMs might exhibit generalisation capabilities beyond what was imaginable a decade or two ago, I believe there is still a big gap in the learning and generalisation capabilities displayed
+            by humans and LLMs. It is hard to argue against the fact that even for newer tasks for which evolution could not have adapted so fast human pick things up quicker, and the size comparison for the human brain and the genome, alongside mountains of neuroscience and psychology literature points at some learning 
+            at scale really happening after birth.
+            So, back to the question - what is the difference? well, this is too big a question for me to attempt I think. But if I were to guess i don't think it is solely to do with a different algorithm at the neuron scale (as opposed to backpropagation). One direction research in increasing sample efficiency for LLMs 
+            has taken is to make the most of the learning signal available. For example, consider reinforcement learning. Currently, many example solely make use of a scalar reward value at the end of a rollout as the learning signal. However, maybe one reason humans can learn so efficiently is they already have common sense
+            and a good understanding of the world. Can inject the understanding LLMs have about the world to make them learn more efficiently? This is the key idea behind on-policy self distillation.
+            The method goes as follows: we give the model the question and let it attempt a solution. Then, the model receives some feedback from the environment - for example, for coding this might be a compilation error or a test case that didn't pass. Then, the model is prompted again with the previous example, as well the 
+            feedback received. This way, the model can attempt to fix its mistake. The model is trained to match the log probabilities of output with feedback without having received it - this is the training objective. This way, existing world understanding of the model can be used to get a richer learning signal - by incorporating
+            the feedback, the model can learn from the signal of where its attempt went wrong, not solely that it was.
+            There are benefits to this method being on-policy beyond the scalability without a strong teacher. Recent work has demonstarted that self distillation can be beneficial for continual learning (https://arxiv.org/abs/2601.19897) - by letting the model generate its own outputs on-policy, the update
+            ends up being "closer" to the base model, retaining more of the exisiting capabilities. 
+            Now, all of this sounds very exciting - however, what does it work well for? This area is still very new and this is all still being figured out, however one area it seems to shine in looks to be coding with environment feedback from the compiler/interpreter or test cases. However, one field were there is perhaps an even bigger gap between
+            human and model learning than LLMs is robotics. Could self distillation techniques be useful here?
+            There is already work to suggest that when working with VLAs, providing feedback via text for on-policy self distillation does not create a meaningful difference. 
+          </p>
         </div>
       </details>
 
